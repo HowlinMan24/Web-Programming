@@ -1,21 +1,36 @@
-<!doctype html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Categories</title>
 </head>
 <body>
-<div>
     <h1>Categories Page</h1>
+
     <a th:href="@{/hello}">Home</a>
+
     <h2>
-        <th:block th:text="'Hello ' + ${ipAddress}"></th:block>
+        <th:block th:text="'Hello ' + ${ipAddress}" />
     </h2>
     <p>
-        <th:block th:text="'User Agent ' + ${userAgent}"></th:block>
+        <th:block th:text="'User Agent: ' + ${userAgent}" />
     </p>
+
+    <th:block>
+        <div th:text="${userViews?:0}"></div>
+    </th:block>
+
+    <th:block th:if="${session.user}">
+        <h2>Info about user</h2>
+        <div th:text="${session.user.username}"></div>
+        <div th:text="${session.user.name}"></div>
+        <div th:text="${session.user.surname}"></div>
+
+        <div>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </th:block>
 
     <h3>
         Categories:
@@ -27,7 +42,7 @@
 
     <div>
         <h3>
-            Enter a new category
+            Enter new category
         </h3>
 
         <form th:action="@{/servlet/category}" th:method="POST">
@@ -48,10 +63,7 @@
             <button type="submit">
                 Add
             </button>
-
         </form>
     </div>
-
-</div>
 </body>
 </html>
